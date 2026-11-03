@@ -229,6 +229,10 @@
     }
     
     .size-1x1 .tileimg { width: 68%; height: 68%; }
+    .size-1x1 .tileimg[alt="Loop"]{
+      width:76%;
+      height:76%;
+    }
     .size-2x1 .tileimg { width: auto; height: 78%; max-width: 58%; }
     .size-2x2 .tileimg { width: 62%; height: 62%; }
 
@@ -871,9 +875,19 @@
       gap:0;
     }
 
-    /* Training menu: four simple destinations in one row on desktop. */
+    /* Training menu: three tiles on the first row and two centred below. */
     .training-topic-grid{
-      grid-template-columns:repeat(4, 170px);
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:18px;
+      width:546px;
+      max-width:100%;
+    }
+
+    .training-topic-grid .training-coh-topic{
+      grid-column:auto;
+      justify-self:auto;
     }
 
     .training-topic .topic-title{
@@ -911,6 +925,10 @@
       filter:
         drop-shadow(0 1px 1px rgba(255,255,255,.08))
         drop-shadow(0 3px 7px rgba(0,0,0,.10));
+    }
+    .training-coh-topic .topic-icon-glyph{
+      width:96px;
+      height:96px;
     }
 
     /* Optical balance for the Well-being menu only.
@@ -1190,7 +1208,17 @@
       }
 
       .training-topic-grid{
-        grid-template-columns:repeat(2, 160px);
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:16px;
+        width:336px;
+        max-width:100%;
+      }
+
+      .training-topic-grid .training-coh-topic{
+        grid-column:auto;
+        justify-self:auto;
       }
 
       .wellbeing-topic{
@@ -1971,16 +1999,16 @@
 </a>
 <!-- Loop (Replaces the first half of the old Academy GO tile) -->
 <a aria-label="Loop" class="tile links size-1x1 liquidGlass-wrapper" href="https://web.loop.allocate-cloud.co.uk/loop" rel="noopener noreferrer" target="_blank"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text">
-<div class="imgbox"><img alt="Loop" class="tileimg" loading="lazy" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%0Afill='none' stroke='url(%23stroke)' stroke-width='1.5'%0Astroke-linecap='round' stroke-linejoin='round'%3E%0A%3Cdefs%3E%0A  %3ClinearGradient id='stroke' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.82'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.54'/%3E%0A  %3C/linearGradient%3E%0A  %3ClinearGradient id='fill' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.14'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.045'/%3E%0A  %3C/linearGradient%3E%0A%3C/defs%3E%0A%0A%3Cpath d='M17 7h1a5 5 0 0 1 0 10h-1'/%3E%0A%3Cpath d='M7 17H6A5 5 0 0 1 6 7h1'/%3E%0A%3Cpath d='M8 7l8 10'/%3E%0A%3Cpath d='M16 7L8 17'/%3E%0A%0A%3C/svg%3E"/></div>
+<div class="imgbox"><img alt="Loop" class="tileimg" loading="lazy" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%0Afill='none'%20stroke='url(%23stroke)'%20stroke-width='1.5'%0Astroke-linecap='round'%20stroke-linejoin='round'%3E%0A%3Cdefs%3E%0A%20%20%3ClinearGradient%20id='stroke'%20x1='0'%20y1='0'%20x2='0'%20y2='1'%3E%0A%20%20%20%20%3Cstop%20offset='0%'%20stop-color='white'%20stop-opacity='.82'/%3E%0A%20%20%20%20%3Cstop%20offset='100%'%20stop-color='white'%20stop-opacity='.54'/%3E%0A%20%20%3C/linearGradient%3E%0A%20%20%3ClinearGradient%20id='fill'%20x1='0'%20y1='0'%20x2='0'%20y2='1'%3E%0A%20%20%20%20%3Cstop%20offset='0%'%20stop-color='white'%20stop-opacity='.14'/%3E%0A%20%20%20%20%3Cstop%20offset='100%'%20stop-color='white'%20stop-opacity='.045'/%3E%0A%20%20%3C/linearGradient%3E%0A%3C/defs%3E%0A%3Cpath%20d='M8%2016.5c-2.2%200-4-1.8-4-4s1.8-4%204-4c1.9%200%203%201.2%204.8%203.2L14%2013c1.8%202%202.9%203.2%204.8%203.2%202.2%200%204-1.8%204-4s-1.8-4-4-4c-1.9%200-3%201.2-4.8%203.2L12.8%2013C11%2015%209.9%2016.5%208%2016.5z'%20transform='translate(-1.4%20-0.5)%20scale(0.92)'/%3E%0A%3C/svg%3E"/></div>
 <div class="label">Loop</div>
 </div></a>
 <!-- ESR (Replaces the second half of the old Academy GO tile) -->
 <a aria-label="ESR" class="tile yellow size-1x1 liquidGlass-wrapper" href="https://my.esr.nhs.uk/localresponse/?TAM_OP=login&amp;USERNAME=unauthenticated&amp;ERROR_CODE=0x00000000&amp;METHOD=GET&amp;URL=https%3A%2F%2Fmy.esr.nhs.uk%2Fdashboard%2Fc%2Fportal%2Flogin%3Fnav%3Dmyesr&amp;HOSTNAME=my.esr.nhs.uk&amp;FAILREASON=&amp;PROTOCOL=https" rel="noopener noreferrer" target="_blank"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text">
 <div class="imgbox"><img alt="ESR" class="tileimg" loading="lazy" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%0Afill='none' stroke='url(%23stroke)' stroke-width='1.5'%0Astroke-linecap='round' stroke-linejoin='round'%3E%0A%3Cdefs%3E%0A  %3ClinearGradient id='stroke' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.82'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.54'/%3E%0A  %3C/linearGradient%3E%0A  %3ClinearGradient id='fill' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.14'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.045'/%3E%0A  %3C/linearGradient%3E%0A%3C/defs%3E%0A%0A%3Ccircle cx='9' cy='7' r='4' fill='url(%23fill)'/%3E%0A%3Cpath d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/%3E%0A%3Cpath d='M22 21v-2a4 4 0 0 0-3-3.87'/%3E%0A%3Cpath d='M16 3.13a4 4 0 0 1 0 7.75'/%3E%0A%0A%3C/svg%3E"/></div>
 <div class="label">ESR</div>
-</div></a><a aria-label="COH" class="tile people size-1x1 liquidGlass-wrapper" href="http://essentiaacademy.short.gy/coh" rel="noopener noreferrer" target="_blank"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text">
-<div class="imgbox"><img alt="Links" class="tileimg" loading="lazy" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%0Afill='none' stroke='url(%23stroke)' stroke-width='1.5'%0Astroke-linecap='round' stroke-linejoin='round'%3E%0A%3Cdefs%3E%0A  %3ClinearGradient id='stroke' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.82'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.54'/%3E%0A  %3C/linearGradient%3E%0A  %3ClinearGradient id='fill' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.14'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.045'/%3E%0A  %3C/linearGradient%3E%0A%3C/defs%3E%0A%0A%3Cpath d='M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z' fill='url(%23fill)'/%3E%0A%3Cpath d='M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z' fill='url(%23fill)'/%3E%0A%0A%3C/svg%3E"/></div>
-<div class="label">COH</div>
+</div></a><a aria-label="Vacancies" class="tile people size-1x1 liquidGlass-wrapper" href="https://www.guysandstthomas.nhs.uk/current-vacancies" rel="noopener noreferrer" target="_blank"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text">
+<div class="imgbox"><img alt="Vacancies" class="tileimg" loading="lazy" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%0Afill='none'%20stroke='url(%23stroke)'%20stroke-width='1.5'%0Astroke-linecap='round'%20stroke-linejoin='round'%3E%0A%3Cdefs%3E%0A%20%20%3ClinearGradient%20id='stroke'%20x1='0'%20y1='0'%20x2='0'%20y2='1'%3E%0A%20%20%20%20%3Cstop%20offset='0%'%20stop-color='white'%20stop-opacity='.82'/%3E%0A%20%20%20%20%3Cstop%20offset='100%'%20stop-color='white'%20stop-opacity='.54'/%3E%0A%20%20%3C/linearGradient%3E%0A%20%20%3ClinearGradient%20id='fill'%20x1='0'%20y1='0'%20x2='0'%20y2='1'%3E%0A%20%20%20%20%3Cstop%20offset='0%'%20stop-color='white'%20stop-opacity='.14'/%3E%0A%20%20%20%20%3Cstop%20offset='100%'%20stop-color='white'%20stop-opacity='.045'/%3E%0A%20%20%3C/linearGradient%3E%0A%3C/defs%3E%0A%3Crect%20x='3'%20y='7'%20width='18'%20height='12'%20rx='2.5'%20fill='url(%23fill)'/%3E%0A%3Cpath%20d='M9%207V6a3%203%200%200%201%203-3h0a3%203%200%200%201%203%203v1'/%3E%0A%3Cpath%20d='M3%2011.5h18'/%3E%0A%3Cpath%20d='M10.5%2014.5h3'/%3E%0A%3C/svg%3E"/></div>
+<div class="label">Vacancies</div>
 </div></a><a aria-label="Intranet" class="tile calendar size-1x1 liquidGlass-wrapper" href="https://intranet.gstt.nhs.uk" rel="noopener noreferrer" target="_blank"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text"><div class="imgbox"><img alt="Intranet" class="tileimg" loading="lazy" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%0Afill='none' stroke='url(%23stroke)' stroke-width='1.5'%0Astroke-linecap='round' stroke-linejoin='round'%3E%0A%3Cdefs%3E%0A  %3ClinearGradient id='stroke' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.82'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.54'/%3E%0A  %3C/linearGradient%3E%0A  %3ClinearGradient id='fill' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.14'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.045'/%3E%0A  %3C/linearGradient%3E%0A%3C/defs%3E%0A%0A%3Cpath d='M3 21h18'/%3E%0A%3Cpath d='M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16' fill='url(%23fill)'/%3E%0A%3Cpath d='M9 7h.01M15 7h.01M9 11h.01M15 11h.01M9 15h.01M15 15h.01'/%3E%0A%3Cpath d='M10 21v-3h4v3'/%3E%0A%0A%3C/svg%3E"/></div><div class="label">Intranet</div></div></a><a aria-label="Your well-being" class="tile mail liquidGlass-wrapper size-2x1" href="#wellbeing"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text">
 <div class="imgbox"><img alt="People" class="tileimg" loading="lazy" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%0Afill='none' stroke='url(%23stroke)' stroke-width='1.5'%0Astroke-linecap='round' stroke-linejoin='round'%3E%0A%3Cdefs%3E%0A  %3ClinearGradient id='stroke' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.82'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.54'/%3E%0A  %3C/linearGradient%3E%0A  %3ClinearGradient id='fill' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.14'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.045'/%3E%0A  %3C/linearGradient%3E%0A%3C/defs%3E%0A%0A%3Cpath d='M12 21s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 11c0 5.65-7 10-7 10z' fill='url(%23fill)'/%3E%0A%0A%3C/svg%3E"/></div>
 <div class="label">Your Well-being</div>
@@ -2042,7 +2070,7 @@
 </div>
 </a>
 
-<a aria-label="Mandatory Training" class="tile calendar wellbeing-topic training-topic liquidGlass-wrapper hub-enter" href="https://coh.gstt.nhs.uk/login/index.php" target="_blank" rel="noopener noreferrer">
+<a aria-label="Mandatory Training" class="tile calendar wellbeing-topic training-topic liquidGlass-wrapper hub-enter" href="https://coh.gstt.nhs.uk/totara/dashboard/index.php?id=126" target="_blank" rel="noopener noreferrer">
 <div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div>
 <div class="liquidGlass-text">
 <div aria-hidden="true" class="topic-icon"><img class="topic-icon-glyph" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%0Afill='none' stroke='url(%23stroke)' stroke-width='1.5'%0Astroke-linecap='round' stroke-linejoin='round'%3E%0A%3Cdefs%3E%0A  %3ClinearGradient id='stroke' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.82'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.54'/%3E%0A  %3C/linearGradient%3E%0A  %3ClinearGradient id='fill' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.14'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.045'/%3E%0A  %3C/linearGradient%3E%0A%3C/defs%3E%0A%0A%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' fill='url(%23fill)'/%3E%0A%3Cpath d='m9 12 2 2 4-4'/%3E%0A%0A%3C/svg%3E"/>
@@ -2057,6 +2085,15 @@
 <div aria-hidden="true" class="topic-icon"><img class="topic-icon-glyph" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%0Afill='none' stroke='url(%23stroke)' stroke-width='1.5'%0Astroke-linecap='round' stroke-linejoin='round'%3E%0A%3Cdefs%3E%0A  %3ClinearGradient id='stroke' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.82'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.54'/%3E%0A  %3C/linearGradient%3E%0A  %3ClinearGradient id='fill' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.14'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.045'/%3E%0A  %3C/linearGradient%3E%0A%3C/defs%3E%0A%0A%3Cpath d='M4 20V10M10 20V4M16 20v-7M22 20H2'/%3E%0A%3Crect x='2.8' y='10' width='2.4' height='10' rx='1' fill='url(%23fill)' stroke='none'/%3E%0A%3Crect x='8.8' y='4' width='2.4' height='16' rx='1' fill='url(%23fill)' stroke='none'/%3E%0A%3Crect x='14.8' y='13' width='2.4' height='7' rx='1' fill='url(%23fill)' stroke='none'/%3E%0A%0A%3C/svg%3E"/>
 </div>
 <p class="topic-title">WIRED</p>
+</div>
+</a>
+
+<a aria-label="Essentia Training" class="tile people wellbeing-topic training-topic training-coh-topic liquidGlass-wrapper hub-enter" href="http://essentiaacademy.short.gy/coh" target="_blank" rel="noopener noreferrer">
+<div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div>
+<div class="liquidGlass-text">
+<div aria-hidden="true" class="topic-icon"><img class="topic-icon-glyph" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%0Afill='none' stroke='url(%23stroke)' stroke-width='1.45'%0Astroke-linecap='round' stroke-linejoin='round'%3E%0A%3Cdefs%3E%0A  %3ClinearGradient id='stroke' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.84'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.56'/%3E%0A  %3C/linearGradient%3E%0A  %3ClinearGradient id='fill' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.15'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.05'/%3E%0A  %3C/linearGradient%3E%0A%3C/defs%3E%0A%0A%3C%21-- trolley frame --%3E%0A%3Cpath d='M6 5.5h8.7l1.3 12H5.2z' fill='url(%23fill)'/%3E%0A%3Cpath d='M14.7 5.5h2.4l1 9.4'/%3E%0A%3Cpath d='M5.6 10.2h10.8'/%3E%0A%3Cpath d='M6.2 14.2h10.6'/%3E%0A%0A%3C%21-- top supplies / handle --%3E%0A%3Cpath d='M7 5.5V3.8h3.2v1.7'/%3E%0A%3Cpath d='M11.4 5.5V4.3h2.4v1.2'/%3E%0A%3Cpath d='M17.1 5.5h2.1v3.8'/%3E%0A%0A%3C%21-- bag / bucket --%3E%0A%3Cpath d='M16.7 10.4h2.4l.5 4.2h-2.5z' fill='url(%23fill)'/%3E%0A%0A%3C%21-- wheels --%3E%0A%3Ccircle cx='7.2' cy='19.1' r='1.15' fill='url(%23fill)'/%3E%0A%3Ccircle cx='16.1' cy='19.1' r='1.15' fill='url(%23fill)'/%3E%0A%0A%3C/svg%3E"/>
+</div>
+<p class="topic-title">Essentia Training</p>
 </div>
 </a>
 
