@@ -128,19 +128,36 @@
     .grid.left { grid-template-columns: repeat(6, var(--unit)); }
     .grid.right { grid-template-columns: repeat(2, var(--unit)); }
 
-    /* Responsive adjustments for smaller screens */
-    @media (max-width: 1400px){ 
-      .grid.left { grid-template-columns: repeat(4, var(--unit)); } 
+    /* Responsive adjustments for smaller screens.
+       Switch both dashboard halves together so the layout never becomes
+       half compact-grid and half single-column list. */
+    @media (max-width: 1400px){
+      .dashboard{
+        flex-direction:column;
+        align-items:center;
+      }
+      .grid.left,
+      .grid.right{
+        grid-template-columns:repeat(4, var(--unit));
+      }
     }
-    @media (max-width: 1050px){  
-      .dashboard { flex-direction: column; align-items: center; }
-      .grid.right { grid-template-columns: repeat(4, var(--unit)); } 
-    }
-    @media (max-width: 620px){  
-      .grid.left { grid-template-columns: repeat(2, var(--unit)); }
-      .grid.right { grid-template-columns: repeat(2, var(--unit)); }
-      /* Shrink the large tiles on very small phone screens so they don't break the layout */
-      .size-4x1, .size-4x2 { grid-column: span 2; }
+
+    @media (max-width: 620px){
+      .grid.left,
+      .grid.right{
+        grid-template-columns:repeat(2, var(--unit));
+      }
+
+      /* Large left-side tiles fit the two-column phone grid. */
+      .size-4x1,
+      .size-4x2{
+        grid-column:span 2;
+      }
+
+      /* Keep the four action tiles as a 2 × 2 grid instead of a long list. */
+      .grid.right .size-2x1{
+        grid-column:span 1;
+      }
     }
 
     .tile{
@@ -1818,6 +1835,211 @@
       }
     }
 
+
+
+    /* === UNIVERSAL FLUID LAYOUT ===
+       One responsive system for desktop, laptop, tablet, split-screen and phone.
+       Tiles use the space they are given and only change structure when there is
+       no longer enough room to remain readable. */
+
+    .block{
+      width:var(--hub-home-width, fit-content);
+      max-width:100%;
+      min-width:0;
+    }
+
+    #dashboard,
+    .hub-view,
+    .wellbeing-menu-view,
+    .wellbeing-menu-shell{
+      max-width:100%;
+      min-width:0;
+    }
+
+    .dashboard{
+      --dash-unit:clamp(84px, calc((100vw - 146px) / 8), 155px);
+      display:flex;
+      flex-flow:row nowrap;
+      align-items:flex-start;
+      justify-content:center;
+      gap:var(--gap);
+      width:fit-content;
+      max-width:100%;
+      margin-inline:auto;
+    }
+
+    .grid{
+      min-width:0;
+      max-width:100%;
+      grid-auto-rows:var(--dash-unit);
+    }
+
+    .grid.left{
+      grid-template-columns:repeat(6, minmax(0, var(--dash-unit)));
+    }
+
+    .grid.right{
+      grid-template-columns:repeat(2, minmax(0, var(--dash-unit)));
+    }
+
+    .tile{
+      min-width:0;
+      max-width:100%;
+    }
+
+    .size-1x1{
+      min-width:0;
+    }
+
+    /* Once eight columns would make the tiles too small, both dashboard halves
+       move together into the same four-column system. */
+    @media (max-width:820px){
+      .dashboard{
+        --dash-unit:clamp(82px, calc((100vw - 90px) / 4), 155px);
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .grid.left,
+      .grid.right{
+        grid-template-columns:repeat(4, minmax(0, var(--dash-unit)));
+      }
+    }
+
+    /* Very narrow screens keep two real columns. Wide tiles contract to the
+       available two-column grid rather than overflowing or becoming a list. */
+    @media (max-width:430px){
+      .dashboard{
+        --dash-unit:clamp(72px, calc((100vw - 62px) / 2), 155px);
+      }
+
+      .grid.left,
+      .grid.right{
+        grid-template-columns:repeat(2, minmax(0, var(--dash-unit)));
+      }
+
+      .size-4x1,
+      .size-4x2{
+        grid-column:span 2;
+      }
+
+      .grid.left > .size-2x1,
+      .grid.right > .size-2x1{
+        grid-column:span 1;
+      }
+    }
+
+    /* Well-being + Training share one genuinely fluid tile system.
+       Give the menu shell a real responsive width first; otherwise the centred
+       flex parent can shrink-wrap itself around a single tile. */
+    .wellbeing-menu-view{
+      width:min(1040px, 100%);
+    }
+
+    #view-training .wellbeing-menu-shell,
+    #view-wellbeing .wellbeing-menu-shell{
+      width:min(546px, 100%);
+      max-width:100%;
+      align-self:center;
+    }
+
+    .wellbeing-topic-grid,
+    .training-topic-grid{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      align-items:flex-start;
+      gap:clamp(12px, 2vw, 18px);
+      width:100%;
+      max-width:546px;
+      margin-inline:auto;
+    }
+
+    .wellbeing-topic{
+      flex:1 1 128px;
+      width:auto;
+      height:auto;
+      min-width:0;
+      min-height:0;
+      max-width:170px;
+      aspect-ratio:1 / 1;
+    }
+
+    .training-topic-grid .training-coh-topic{
+      grid-column:auto;
+      justify-self:auto;
+    }
+
+    .wellbeing-topic .topic-icon .topic-icon-glyph{
+      width:min(86px, 78%);
+      height:min(86px, 78%);
+    }
+
+    .training-coh-topic .topic-icon-glyph{
+      width:min(96px, 82%);
+      height:min(96px, 82%);
+    }
+
+    /* Book a Space follows the same principle but keeps its larger photo tiles. */
+    #view-room-scheduling .wellbeing-menu-shell{
+      width:min(786px, 100%);
+      max-width:100%;
+      align-self:center;
+    }
+
+    .room-scheduling-topic-grid{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      align-items:flex-start;
+      gap:clamp(12px, 2vw, 18px);
+      width:min(100%, 786px);
+      max-width:100%;
+      margin-inline:auto;
+    }
+
+    .booking-resource-topic{
+      flex:1 1 210px;
+      width:auto;
+      height:auto;
+      min-width:0;
+      min-height:0;
+      max-width:250px;
+      aspect-ratio:1 / 1;
+    }
+
+    /* Let labels and artwork shrink inside their tile instead of forcing width. */
+    .liquidGlass-text,
+    .imgbox,
+    .topic-icon,
+    .booking-resource-icon{
+      min-width:0;
+      max-width:100%;
+    }
+
+    @media (max-width:360px){
+      .stage{
+        padding-left:12px;
+        padding-right:12px;
+      }
+
+      .dashboard{
+        --dash-unit:clamp(68px, calc((100vw - 38px) / 2), 155px);
+      }
+
+      .label{
+        left:10px;
+        right:8px;
+        bottom:9px;
+        font-size:.72rem;
+      }
+
+      .wellbeing-topic .topic-title{
+        left:8px;
+        right:8px;
+        font-size:.8rem;
+      }
+    }
 
     /* === APP TRANSITION TEST === */
     .app-splash{
