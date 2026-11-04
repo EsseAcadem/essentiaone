@@ -1866,16 +1866,8 @@
       min-width:0;
     }
 
-    /* Preferred home proportion: the dashboard should look like the approved
-       reference on any roomy display, rather than growing until it feels zoomed.
-       142px is the preferred desktop tile unit; width/height only reduce it when
-       the viewport genuinely needs a smaller composition. */
-    .block{
-      --home-unit:clamp(84px, min(calc((100vw - 146px) / 8), calc((100vh - 190px) / 4)), 142px);
-    }
-
     .dashboard{
-      --dash-unit:var(--home-unit);
+      --dash-unit:clamp(84px, calc((100vw - 146px) / 8), 155px);
       display:flex;
       flex-flow:row nowrap;
       align-items:flex-start;
@@ -1884,25 +1876,6 @@
       width:fit-content;
       max-width:100%;
       margin-inline:auto;
-    }
-
-    /* Keep the home typography in proportion with the preferred tile scale. */
-    #dashboard .time .clock,
-    #dashboard .weather .temp{
-      font-size:clamp(30px, 2.8vw, 46px);
-    }
-
-    #dashboard .time .date,
-    #dashboard .weather .cond{
-      font-size:clamp(11px, .85vw, 14px);
-    }
-
-    #dashboard .weather .wicon{
-      width:clamp(42px, 4vw, 66px);
-    }
-
-    #dashboard .label{
-      font-size:clamp(.70rem, .8vw, .82rem);
     }
 
     .grid{
@@ -1932,7 +1905,7 @@
        move together into the same four-column system. */
     @media (max-width:820px){
       .dashboard{
-        --dash-unit:clamp(82px, calc((100vw - 90px) / 4), 142px);
+        --dash-unit:clamp(82px, calc((100vw - 90px) / 4), 155px);
         flex-direction:column;
         align-items:center;
       }
@@ -1947,7 +1920,7 @@
        available two-column grid rather than overflowing or becoming a list. */
     @media (max-width:430px){
       .dashboard{
-        --dash-unit:clamp(72px, calc((100vw - 62px) / 2), 142px);
+        --dash-unit:clamp(72px, calc((100vw - 62px) / 2), 155px);
       }
 
       .grid.left,
@@ -2071,7 +2044,7 @@
       }
 
       .dashboard{
-        --dash-unit:clamp(68px, calc((100vw - 38px) / 2), 142px);
+        --dash-unit:clamp(68px, calc((100vw - 38px) / 2), 155px);
       }
 
       .label{
@@ -2086,6 +2059,220 @@
         right:8px;
         font-size:.8rem;
       }
+    }
+
+
+    /* Internal menu shells need their OWN available width. Without this,
+       flex shrink-wraps a 3-column menu down to one or two cards even on
+       desktop. This does not affect tile styling or other detail pages. */
+    #view-training,
+    #view-wellbeing{
+      width:min(546px, calc(100vw - 48px));
+      max-width:100%;
+      align-self:center;
+    }
+    #view-training .wellbeing-menu-shell,
+    #view-wellbeing .wellbeing-menu-shell{
+      width:100%;
+      max-width:100%;
+    }
+    #view-training .wellbeing-topic-grid,
+    #view-wellbeing .wellbeing-topic-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(min(100%, 150px), 170px));
+      width:100%; max-width:100%;
+      justify-content:center;
+      align-content:start;
+      gap:18px;
+    }
+    #view-training .wellbeing-topic,
+    #view-wellbeing .wellbeing-topic{
+      flex:none;
+      width:100%; height:auto;
+      min-width:0; min-height:0;
+      max-width:170px; aspect-ratio:1/1;
+    }
+    #view-room-scheduling{
+      width:min(786px, calc(100vw - 48px));
+      max-width:100%; align-self:center;
+    }
+    #view-room-scheduling .wellbeing-menu-shell{
+      width:100%; max-width:100%;
+    }
+    #view-room-scheduling .room-scheduling-topic-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),250px));
+      justify-content:center;
+      width:100%; max-width:100%;
+      gap:18px;
+    }
+    #view-room-scheduling .booking-resource-topic{
+      width:100%; height:auto; min-width:0; min-height:0;
+      max-width:250px; aspect-ratio:1/1;
+    }
+
+    @media (max-width:560px){
+      #view-training .wellbeing-topic-grid,
+      #view-wellbeing .wellbeing-topic-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        width:min(358px,100%);
+      }
+      #view-room-scheduling .room-scheduling-topic-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        width:min(518px,100%);
+      }
+    }
+    @media (max-width:430px){
+      #view-room-scheduling .room-scheduling-topic-grid{
+        grid-template-columns:minmax(0,250px);
+      }
+    }
+    @media (max-width:300px){
+      #view-training .wellbeing-topic-grid,
+      #view-wellbeing .wellbeing-topic-grid{
+        grid-template-columns:minmax(0,170px);
+      }
+    }
+
+    @media (min-width:301px) and (max-width:560px){
+      #view-wellbeing .wellbeing-topic-grid > .wellbeing-topic:last-child{
+        grid-column:1/-1;
+        justify-self:center;
+        width:calc((100% - 18px)/2);
+      }
+    }
+    @media (min-width:431px) and (max-width:560px){
+      #view-room-scheduling .booking-resource-topic:last-child{
+        grid-column:1/-1;
+        justify-self:center;
+        width:calc((100% - 18px)/2);
+      }
+    }
+
+    /* === HOME: READABLE MULTIPLATFORM LAYOUT ===
+       Desktop keeps the 6+2 composition. As soon as fitting it would make
+       the artwork too small, switch to readable four-column or two-column
+       tiles. Never squeeze the entire desktop dashboard into a phone window. */
+    :root{ --home-desktop-scale:1; }
+
+    body.home-layout-desktop .block{
+      width:1234px; min-width:1234px; max-width:none;
+      height:auto; min-height:0;
+      margin:auto;
+      zoom:var(--home-desktop-scale);
+    }
+    body.home-layout-desktop header{
+      width:1234px; max-width:none; margin:0 0 48px;
+    }
+    body.home-layout-desktop header .brand img{height:58px; width:auto;}
+    body.home-layout-desktop #dashboard{
+      display:flex; flex-flow:row nowrap; align-items:flex-start;
+      justify-content:center; width:1234px; max-width:none;
+      gap:14px; margin-inline:0;
+    }
+    body.home-layout-desktop #dashboard .grid{
+      gap:14px; grid-auto-rows:142px; max-width:none;
+    }
+    body.home-layout-desktop #dashboard .grid.left{
+      grid-template-columns:repeat(6, 142px);
+    }
+    body.home-layout-desktop #dashboard .grid.right{
+      grid-template-columns:repeat(2, 142px);
+    }
+    body.home-layout-desktop #dashboard .size-1x1{grid-column:span 1; grid-row:span 1;}
+    body.home-layout-desktop #dashboard .size-2x1{grid-column:span 2; grid-row:span 1;}
+    body.home-layout-desktop #dashboard .size-2x2{grid-column:span 2; grid-row:span 2;}
+    body.home-layout-desktop #dashboard .size-4x1{grid-column:span 4; grid-row:span 1;}
+    body.home-layout-desktop #dashboard .size-4x2{grid-column:span 4; grid-row:span 2;}
+    body.home-layout-desktop #dashboard .time .clock{font-size:56px;}
+    body.home-layout-desktop #dashboard .time .date{font-size:16px;}
+    body.home-layout-desktop #dashboard .weather .temp{font-size:56px;}
+    body.home-layout-desktop #dashboard .weather .cond{font-size:16px;}
+    body.home-layout-desktop #dashboard .weather .wicon{width:90px;}
+    body.home-layout-desktop #dashboard .label{font-size:.9rem; left:14px; bottom:12px;}
+
+    /* When desktop no longer fits at a readable size, use a real adaptive
+       grid with full-size text and vertical scrolling when necessary. */
+    body.home-layout-adaptive .stage{min-height:100vh;}
+    body.home-layout-adaptive .block{
+      width:min(100%, 740px); max-width:100%; min-width:0;
+      height:auto; min-height:0; zoom:1; margin:auto;
+    }
+    body.home-layout-adaptive header{
+      width:100%; margin:0 0 24px;
+    }
+    body.home-layout-adaptive header .brand img{
+      height:clamp(40px, 5.4vw, 58px); width:auto;
+    }
+    body.home-layout-adaptive #dashboard{
+      top:0;
+      display:flex; flex-direction:column; flex-wrap:nowrap;
+      justify-content:center; align-items:center;
+      gap:14px;
+      width:100%; max-width:100%; margin:0;
+    }
+    body.home-layout-adaptive #dashboard .grid{
+      --adaptive-unit:min(166px, max(0px, calc((100vw - 96px) / 4)));
+      grid-template-columns:repeat(4, minmax(0, var(--adaptive-unit)));
+      grid-auto-rows:var(--adaptive-unit);
+      gap:14px; max-width:100%; width:max-content;
+      grid-auto-flow:row dense;
+    }
+    body.home-layout-adaptive #dashboard .grid.right .size-2x1{
+      grid-column:span 2;
+    }
+    body.home-layout-adaptive #dashboard .size-4x1{grid-column:span 4; grid-row:span 1;}
+    body.home-layout-adaptive #dashboard .size-4x2{grid-column:span 4; grid-row:span 2;}
+    body.home-layout-adaptive #dashboard .size-2x2{grid-column:span 2; grid-row:span 2;}
+    body.home-layout-adaptive #dashboard .size-2x1{grid-column:span 2; grid-row:span 1;}
+    body.home-layout-adaptive #dashboard .size-1x1{grid-column:span 1; grid-row:span 1;}
+    body.home-layout-adaptive #dashboard .label{
+      font-size:clamp(.76rem, 1.5vw, .9rem);
+    }
+    body.home-layout-adaptive #dashboard .time .clock{
+      font-size:clamp(35px, 5vw, 56px);
+    }
+    body.home-layout-adaptive #dashboard .weather .temp{
+      font-size:clamp(35px, 5vw, 56px);
+    }
+
+    /* Phone, small browser windows and narrow split-screen: two proper
+       columns, not a miniature desktop. Content scrolls naturally. */
+    @media (max-width:620px){
+      body.home-layout-adaptive .stage{padding:24px 18px 32px;}
+      body.home-layout-adaptive .block{width:100%;}
+      body.home-layout-adaptive #dashboard .grid{
+        --adaptive-unit:min(198px, max(0px, calc((100vw - 50px) / 2)));
+        grid-template-columns:repeat(2, minmax(0, var(--adaptive-unit)));
+      }
+      body.home-layout-adaptive #dashboard .grid.left > .size-2x2{
+        grid-column:span 2; grid-row:span 1;
+      }
+      body.home-layout-adaptive #dashboard .size-4x1,
+      body.home-layout-adaptive #dashboard .size-4x2{
+        grid-column:span 2;
+      }
+      body.home-layout-adaptive #dashboard .size-4x1{grid-row:span 1;}
+      body.home-layout-adaptive #dashboard .size-4x2{grid-row:span 2;}
+      body.home-layout-adaptive #dashboard .grid.left > .size-2x1{
+        grid-column:span 2;
+      }
+      body.home-layout-adaptive #dashboard .grid.right > .size-2x1{
+        grid-column:span 1;
+        grid-row:span 1;
+      }
+      body.home-layout-adaptive #dashboard .time .clock{font-size:44px;}
+      body.home-layout-adaptive #dashboard .weather .temp{font-size:44px;}
+      body.home-layout-adaptive #dashboard .label{font-size:.83rem;}
+      body.home-layout-adaptive header{margin-bottom:18px;}
+    }
+    @media (max-width:360px){
+      body.home-layout-adaptive .stage{padding:18px 12px 28px;}
+      body.home-layout-adaptive #dashboard .grid{
+        --adaptive-unit:min(198px, max(0px, calc((100vw - 34px) / 2)));
+        gap:10px;
+      }
+      body.home-layout-adaptive #dashboard .label{font-size:.75rem;}
     }
 
     /* === APP TRANSITION TEST === */
@@ -2660,6 +2847,8 @@
 
       function captureHomeShellSize(){
         if (!hubBlock || !dashboardView || dashboardView.hidden) return;
+        if (document.body && (document.body.classList.contains('home-layout-desktop') ||
+                              document.body.classList.contains('home-layout-adaptive'))) return;
 
         hubBlock.style.removeProperty('--hub-home-width');
         hubBlock.style.removeProperty('--hub-home-height');
@@ -2768,6 +2957,63 @@
           if (appSplash) appSplash.classList.add('is-hidden');
         }, 1500);
       }
+    })();
+
+
+    // Desktop only when it can remain readable. Otherwise switch to real
+    // adaptive tiles instead of shrinking the full layout into a thumbnail.
+    (function(){
+      const BASE_WIDTH=1234;
+      const BASE_HEIGHT=728;
+      const MIN_READABLE_SCALE=.84;
+      const MAX_SCALE=1;
+      const root=document.documentElement;
+      const body=document.body;
+      const hubBlock=document.querySelector('.block');
+
+      function isHome(){
+        const raw=(location.hash||'#home').slice(1).toLowerCase();
+        return raw==='home'||raw==='';
+      }
+      function clearStaleShell(){
+        if (!hubBlock) return;
+        hubBlock.style.removeProperty('--hub-home-width');
+        hubBlock.style.removeProperty('--hub-home-height');
+        hubBlock.style.removeProperty('--hub-home-content-height');
+      }
+      function applyHomeLayout(){
+        clearStaleShell();
+        if (!isHome()){
+          body.classList.remove('home-layout-desktop','home-layout-adaptive',
+                                'home-proportion-mode','proportion-scale-active');
+          root.style.setProperty('--home-desktop-scale','1');
+          return;
+        }
+        const stage=document.querySelector('.stage');
+        const css=stage?getComputedStyle(stage):null;
+        const px=css?(parseFloat(css.paddingLeft)||0)+(parseFloat(css.paddingRight)||0):48;
+        const py=css?(parseFloat(css.paddingTop)||0)+(parseFloat(css.paddingBottom)||0):48;
+        const fit=Math.min(
+          Math.max(0,root.clientWidth-px)/BASE_WIDTH,
+          Math.max(0,root.clientHeight-py)/BASE_HEIGHT
+        );
+        const useDesktop=fit>=MIN_READABLE_SCALE;
+        const scale=Math.min(MAX_SCALE,fit);
+        root.style.setProperty('--home-desktop-scale',useDesktop?scale.toFixed(4):'1');
+        body.classList.toggle('home-layout-desktop',useDesktop);
+        body.classList.toggle('home-layout-adaptive',!useDesktop);
+        body.classList.remove('home-proportion-mode','proportion-scale-active');
+      }
+      let raf=0;
+      function schedule(){
+        cancelAnimationFrame(raf);
+        raf=requestAnimationFrame(applyHomeLayout);
+      }
+      window.addEventListener('resize',schedule,{passive:true});
+      window.addEventListener('orientationchange',schedule,{passive:true});
+      window.addEventListener('hashchange',schedule);
+      window.addEventListener('DOMContentLoaded',schedule);
+      if (document.readyState!=='loading') schedule();
     })();
 
     // Time (London)
