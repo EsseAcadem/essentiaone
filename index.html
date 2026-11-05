@@ -2378,10 +2378,10 @@
       to{opacity:1; transform:none;}
     }
 
-    .app-leave-forward{animation:appLeaveForward .17s ease-in both;}
-    .app-enter-forward{animation:appEnterForward .30s cubic-bezier(.16,1,.3,1) both;}
-    .app-leave-back{animation:appLeaveBack .17s ease-in both;}
-    .app-enter-back{animation:appEnterBack .30s cubic-bezier(.16,1,.3,1) both;}
+    .app-leave-forward{animation:appLeaveForward .20s ease-in both;}
+    .app-enter-forward{animation:appEnterForward .36s cubic-bezier(.16,1,.3,1) both;}
+    .app-leave-back{animation:appLeaveBack .20s ease-in both;}
+    .app-enter-back{animation:appEnterBack .36s cubic-bezier(.16,1,.3,1) both;}
 
 </style>
 </head>
@@ -2901,6 +2901,7 @@
           nextView.hidden = false;
           document.title = titles[nextRoute] || 'Essentia 🄷🅄🄱';
           currentRoute = nextRoute;
+          window.dispatchEvent(new Event('essentia-hub-view-switched'));
           window.scrollTo({top:0, behavior:'auto'});
           return;
         }
@@ -2917,13 +2918,16 @@
         if (oldView) {
           clearTransitionClasses(oldView);
           oldView.classList.add('app-transitioning', leaveClass);
-          await wait(165);
+          await wait(205);
           oldView.hidden = true;
           clearTransitionClasses(oldView);
         }
 
         hideAllExcept(nextView);
         nextView.hidden = false;
+        // Switch the responsive mode only between the two animations.
+        // In v101 the hashchange listener could shrink/reflow Home during fade-out.
+        window.dispatchEvent(new Event('essentia-hub-view-switched'));
         clearTransitionClasses(nextView);
         nextView.classList.add('app-transitioning', enterClass);
 
@@ -2931,7 +2935,7 @@
         currentRoute = nextRoute;
         window.scrollTo({top:0, behavior:'auto'});
 
-        await wait(330);
+        await wait(380);
         clearTransitionClasses(nextView);
         transitioning = false;
       }
@@ -3011,7 +3015,12 @@
       }
       window.addEventListener('resize',schedule,{passive:true});
       window.addEventListener('orientationchange',schedule,{passive:true});
-      window.addEventListener('hashchange',schedule);
+      // Do not reflow Home at the start of a route transition. Apply the
+      // correct desktop/adaptive layout once the new view is actually shown.
+      window.addEventListener('essentia-hub-view-switched',function(){
+        cancelAnimationFrame(raf);
+        applyHomeLayout();
+      });
       window.addEventListener('DOMContentLoaded',schedule);
       if (document.readyState!=='loading') schedule();
     })();
