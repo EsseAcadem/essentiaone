@@ -2149,6 +2149,48 @@
       }
     }
 
+    /* HelpDesk sub-menu: two matching square tiles, side-by-side when readable.
+       No changes to other menus or existing dashboard sizing. */
+    #view-helpdesk{
+      width:min(358px, calc(100vw - 48px));
+      max-width:100%;
+      align-self:center;
+    }
+    #view-helpdesk .wellbeing-menu-shell{
+      width:100%;
+      max-width:100%;
+    }
+    #view-helpdesk .wellbeing-topic-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 170px));
+      gap:18px;
+      justify-content:center;
+      width:100%;
+      max-width:358px;
+      margin-inline:auto;
+    }
+    #view-helpdesk .wellbeing-topic{
+      width:100%;
+      height:auto;
+      min-width:0;
+      min-height:0;
+      max-width:170px;
+      aspect-ratio:1 / 1;
+    }
+    @media(max-width:360px){
+      #view-helpdesk{
+        width:min(358px, calc(100vw - 24px));
+      }
+      #view-helpdesk .wellbeing-topic-grid{
+        gap:12px;
+      }
+    }
+    @media(max-width:260px){
+      #view-helpdesk .wellbeing-topic-grid{
+        grid-template-columns:minmax(0,170px);
+      }
+    }
+
     /* === HOME: READABLE MULTIPLATFORM LAYOUT ===
        Desktop keeps the 6+2 composition. As soon as fitting it would make
        the artwork too small, switch to readable four-column or two-column
@@ -2486,7 +2528,7 @@
 <div class="label">Policies and Guidance</div>
 </div></a>
 <!-- HelpDesk -->
-<a aria-label="HelpDesk" class="tile yellow size-2x1 liquidGlass-wrapper" href="https://gstt.evolution.cloud.mrisoftware.com/Reach/!System/Security/Login.aspx?ReturnUrl=%2fReach%2f" target="_blank" rel="noopener noreferrer"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text">
+<a aria-label="HelpDesk" class="tile yellow size-2x1 liquidGlass-wrapper" href="#helpdesk"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text">
 <div class="imgbox"><img alt="HelpDesk" class="tileimg" loading="lazy" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%0Afill='none' stroke='url(%23stroke)' stroke-width='1.5'%0Astroke-linecap='round' stroke-linejoin='round'%3E%0A%3Cdefs%3E%0A  %3ClinearGradient id='stroke' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.82'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.54'/%3E%0A  %3C/linearGradient%3E%0A  %3ClinearGradient id='fill' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.14'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.045'/%3E%0A  %3C/linearGradient%3E%0A%3C/defs%3E%0A%0A%3Cpath d='M4 13v-1a8 8 0 0 1 16 0v1'/%3E%0A%3Cpath d='M4 13h3v6H5a1 1 0 0 1-1-1z' fill='url(%23fill)'/%3E%0A%3Cpath d='M20 13h-3v6h2a1 1 0 0 0 1-1z' fill='url(%23fill)'/%3E%0A%3Cpath d='M17 19c0 1.1-.9 2-2 2h-3'/%3E%0A%0A%3C/svg%3E"/></div>
 <div class="label">HelpDesk</div>
 </div></a>
@@ -2563,6 +2605,38 @@
 </div>
 <a aria-label="Back to Essentia HUB" class="hub-back wellbeing-menu-back" href="#home">← Back</a>
 </div>
+</section>
+
+<!-- HelpDesk sub-menu: same glass style as Training and Well-being -->
+<section aria-labelledby="helpdesk-menu-title" class="hub-view wellbeing-menu-view helpdesk-menu-view" hidden id="view-helpdesk">
+  <div class="wellbeing-menu-shell">
+    <h1 class="wellbeing-menu-heading" id="helpdesk-menu-title">HelpDesk</h1>
+    <p class="wellbeing-menu-subtitle">Choose the support you need.</p>
+    <div class="wellbeing-topic-grid">
+      <a aria-label="Essentia HelpDesk" class="tile yellow wellbeing-topic liquidGlass-wrapper hub-enter"
+         href="https://gstt.evolution.cloud.mrisoftware.com/Reach/!System/Security/Login.aspx?ReturnUrl=%2fReach%2f"
+         target="_blank" rel="noopener noreferrer">
+        <div class="liquidGlass-effect"></div>
+        <div class="liquidGlass-tint"></div>
+        <div class="liquidGlass-shine"></div>
+        <div class="liquidGlass-text">
+          <div class="topic-icon" aria-hidden="true"><img class="topic-icon-glyph" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%0Afill='none' stroke='url(%23stroke)' stroke-width='1.5'%0Astroke-linecap='round' stroke-linejoin='round'%3E%0A%3Cdefs%3E%0A  %3ClinearGradient id='stroke' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.82'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.54'/%3E%0A  %3C/linearGradient%3E%0A  %3ClinearGradient id='fill' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.14'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.045'/%3E%0A  %3C/linearGradient%3E%0A%3C/defs%3E%0A%0A%3Cpath d='M4 13v-1a8 8 0 0 1 16 0v1'/%3E%0A%3Cpath d='M4 13h3v6H5a1 1 0 0 1-1-1z' fill='url(%23fill)'/%3E%0A%3Cpath d='M20 13h-3v6h2a1 1 0 0 0 1-1z' fill='url(%23fill)'/%3E%0A%3Cpath d='M17 19c0 1.1-.9 2-2 2h-3'/%3E%0A%0A%3C/svg%3E"/></div>
+          <p class="topic-title">Essentia</p>
+        </div>
+      </a>
+      <a aria-label="IT HelpDesk" class="tile links wellbeing-topic liquidGlass-wrapper hub-enter"
+         href="https://gstt.haloitsm.com/portal/" target="_blank" rel="noopener noreferrer">
+        <div class="liquidGlass-effect"></div>
+        <div class="liquidGlass-tint"></div>
+        <div class="liquidGlass-shine"></div>
+        <div class="liquidGlass-text">
+          <div class="topic-icon" aria-hidden="true"><img class="topic-icon-glyph" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%0Afill='none' stroke='url(%23stroke)' stroke-width='1.5'%0Astroke-linecap='round' stroke-linejoin='round'%3E%0A%3Cdefs%3E%0A  %3ClinearGradient id='stroke' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.82'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.54'/%3E%0A  %3C/linearGradient%3E%0A  %3ClinearGradient id='fill' x1='0' y1='0' x2='0' y2='1'%3E%0A    %3Cstop offset='0%25' stop-color='white' stop-opacity='.14'/%3E%0A    %3Cstop offset='100%25' stop-color='white' stop-opacity='.045'/%3E%0A  %3C/linearGradient%3E%0A%3C/defs%3E%0A%3Crect x='3' y='4.5' width='18' height='12.6' rx='2.2' fill='url(%23fill)'/%3E%0A%3Cpath d='M12 17.1V20M8 20h8'/%3E%0A%3Cpath d='M8 9l2.6 2.4L8 13.8M13 13.8h3.2'/%3E%0A%3C/svg%3E"/></div>
+          <p class="topic-title">IT</p>
+        </div>
+      </a>
+    </div>
+    <a href="#home" class="hub-back wellbeing-menu-back" aria-label="Back to Essentia HUB">← Back</a>
+  </div>
 </section>
 
 <section aria-labelledby="wellbeing-menu-title" class="hub-view wellbeing-menu-view" hidden="" id="view-wellbeing">
@@ -2816,6 +2890,7 @@
 
       const internalViews = {
         training: document.getElementById('view-training'),
+        helpdesk: document.getElementById('view-helpdesk'),
         wellbeing: document.getElementById('view-wellbeing'),
         'room-scheduling': document.getElementById('view-room-scheduling'),
         'wellbeing-spiritual': document.getElementById('view-wellbeing-spiritual'),
@@ -2825,6 +2900,7 @@
 
       const titles = {
         training: 'Training | Essentia HUB',
+        helpdesk: 'HelpDesk | Essentia HUB',
         wellbeing: 'Your Well-being | Essentia HUB',
         'room-scheduling': 'Book a Space | Essentia HUB',
         'wellbeing-spiritual': 'Spiritual Care | Essentia HUB',
@@ -2835,6 +2911,7 @@
       const routeDepth = {
         home:0,
         training:1,
+        helpdesk:1,
         wellbeing:1,
         'room-scheduling':1,
         'wellbeing-spiritual':2,
