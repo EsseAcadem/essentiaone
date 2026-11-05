@@ -2317,6 +2317,18 @@
       body.home-layout-adaptive #dashboard .label{font-size:.75rem;}
     }
 
+    /* Keep the navigation logo anchored to the same Home layout frame.
+       The desktop frame is centred vertically; adaptive frames start at the
+       normal page padding and may scroll. Neither is allowed to shrink to
+       the width of a submenu when the route changes. */
+    body.home-layout-desktop:not(.hub-on-home) .block{
+      min-height:716px;
+    }
+    body.home-layout-adaptive:not(.hub-on-home) .block{
+      margin-top:0;
+      margin-bottom:auto;
+    }
+
     /* === APP TRANSITION TEST === */
     .app-splash{
       position:fixed;
@@ -3064,12 +3076,9 @@
       }
       function applyHomeLayout(){
         clearStaleShell();
-        if (!isHome()){
-          body.classList.remove('home-layout-desktop','home-layout-adaptive',
-                                'home-proportion-mode','proportion-scale-active');
-          root.style.setProperty('--home-desktop-scale','1');
-          return;
-        }
+        // Home and internal pages share one layout frame. Routing must not
+        // change its width, zoom or vertical centring.
+        body.classList.toggle('hub-on-home', isHome());
         const stage=document.querySelector('.stage');
         const css=stage?getComputedStyle(stage):null;
         const px=css?(parseFloat(css.paddingLeft)||0)+(parseFloat(css.paddingRight)||0):48;
